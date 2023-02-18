@@ -1,0 +1,196 @@
+<html lang="en">
+<!-- feel free to revise this file -->
+
+<head>
+	<style>	
+		/*write your css rules here*/
+
+		.boxes{
+			font-size: 20px;
+			font-family: Arial, Helvetica, sans-serif;
+			resize: none;
+			padding-left:10px;
+			padding-top: 5;
+			border-radius: 15px;
+			margin-top: 0cm;
+			margin-left: 10;
+		}
+		h2{
+			font-size: 30px;
+			font-weight: 900;
+			color: #7a7a7a;
+			padding: 30px 40px;
+			margin-bottom: -15;
+			margin-left: -10;
+		}
+		
+		textarea {
+		  width:100%;
+		}
+
+		ol li {
+			list-style-position: inside;
+			font-family: Arial;
+			font-weight: 500;
+			font-size: 30px;
+			color: #ffffff;
+			padding-left:10px;
+			background-color: #c3c3c3;
+			margin-left:-30 ;
+			}
+		li:nth-child(3n) {
+		    background-color: #afafaf;
+		    }
+		
+		li:nth-child(3n+1) {
+		    background-color: #888888;
+		    }
+		
+		li:nth-child(3n+2) {
+		    background-color: #5a5a5a;
+		    }		
+
+		ol li.checked{
+			font-size: 30px;
+			text-decoration: line-through;
+		}
+
+		ol li.hide{
+			display: none;
+
+		}
+		.Add_button{
+			font-size: 20px;
+			font-weight: 900;
+			color: #ffffff;
+			background-color: #c3c3c3;
+		    position: relative;
+		    display: inline-block;
+		    padding: 15px 30px;
+		    margin: 15px 10px;
+		    text-decoration: none;
+		    text-transform: uppercase;
+		    transition: 0.5s;
+		    letter-spacing: 4px;
+		    overflow: hidden;
+		    margin-right: 50px;
+			margin-bottom: 20;
+			border-radius: 15px;
+			border: 0;
+		   
+		}
+		.Add_button:hover{
+		    background: #03e9f4;
+		    color: #ffffff;
+		    box-shadow: 0 0 5px #03e9f4,
+		                0 0 25px #03e9f4,
+		                0 0 50px #03e9f4,
+		                0 0 200px #03e9f4;
+		     -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+		}
+		.Hide_button{
+			font-size: 20px;
+			font-weight: 900;
+			color: #ffffff;
+			background-color: #c3c3c3;
+		    position: relative;
+		    display: inline-block;
+		    padding: 15px 30px;
+		    margin: 15px 10px;
+		    text-decoration: none;
+		    text-transform: uppercase;
+		    transition: 0.5s;
+		    letter-spacing: 4px;
+		    overflow: hidden;
+		    margin-right: 50px;
+			border-radius: 15px;
+			border: 0;
+		   
+		}
+		.Hide_button:hover{
+		    background: #ff00ff;
+		    color: #ffffff;
+		    box-shadow: 0 0 5px #ff00ff,
+		                0 0 25px #ff00ff,
+		                0 0 50px #ff00ff,
+		                0 0 200px #ff00ff;
+		     -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+		}
+
+
+	</style>
+</head>
+
+<body>
+	<h2>To-do list</h2>
+	<textarea id='text' rows="3" class="boxes">Dinner,1;Exercise,2;Study,3</textarea> 
+	<br/>
+	<div class='divButton'>
+		<button id='btn_add' class="Add_button" onclick="addElement()">Add</button>
+		<button id='btn_hide' class="Hide_button" onclick="hideElement()">Toggle</button>
+	</div>
+
+	<ol id='order_list'>
+		<li>Go to GYM</li>
+		<li class="checked">Lunch</li>
+		<li>Dinner</li>
+	</ol>	
+</body>
+
+	<script>
+		// write your Javascript here
+		var input=document.getElementById("text");
+		var order=document.getElementById("order_list");
+		var list = document.querySelector('ol');
+		var hide=false
+		function addElement(){
+			if (input.value==''){
+				alert("Please enter an event");
+			}
+			else {
+				var inputlist=input.value.split(";");
+			for (var each of inputlist) {
+				var event=each.split(",");
+				var newLi=document.createElement("li");
+				newLi.innerHTML=event[0];
+				order.insertBefore(newLi, order.children[parseInt(event[1]) - 1]);
+			}
+			document.getElementById("text").value="";
+			}
+			
+		}
+		//Hide the checked list
+		function hideElement(){
+
+		}
+
+		 function hideElement(){
+			hide = !hide
+			for(let each of order.children){
+			if(hide&&each.classList.contains("checked")){
+			each.classList.add('hide');
+			}
+			else if(!hide&&each.classList.contains('checked')){
+				each.classList.remove('hide');
+			}
+			
+			}}
+
+		//A single click on the completed item will resume it again.
+		
+		list.addEventListener('click', function(cl) {
+		  if (cl.target.tagName === 'LI') {
+		    cl.target.classList.toggle('checked');
+		  }
+		}, false);
+		//A double click on the item to delete the task.
+		list.addEventListener('dblclick', function(dbcl) {
+		  if (confirm("Please confirm whether to delete this line")) {
+		    dbcl.target.remove();
+		  }
+		}, false);
+		
+
+	</script>
+</html>
+
